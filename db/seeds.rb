@@ -1,0 +1,51 @@
+# Seed data for annotators to create
+
+annotators = [
+  ["Named Entity Extraction", "icon", "Extract people and organization names from text.",
+   {fields_to_check: "array", type: "string"},
+   "NamedEntityAnnotator", ["catalyst_people", "catalyst_organizations"], nil, nil],
+  ["Sentiment Analysis", "icon", "Classifies documents into positive/negative sentiment categories.",
+   {fields_to_check: "array"},
+   "SentimentAnnotator", ["catalyst_sentiment"], nil],
+  ["Language Detection", "icon", "Detects the language a document is written in.",
+   {fields_to_check: "array"},
+   "LanguageAnnotator", ["catalyst_language"], nil, nil],
+  ["Extract Terms", "icon", "Tags documents with terms they include from a list.",
+   {fields_to_check: "array", term_list: "string", case_sensitive: "boolean"},
+   "TermlistAnnotator", ["catalyst_termcategory", "catalyst_termlist"], nil, nil],
+  ["Naive Bayes Classifier", "icon", "Tags documents with labels based on training data using Naive Bayes.",
+   {fields_to_check: "array", classifier_title: "string"},
+   "NaiveBayesAnnotator", ["catalyst_naivebayes"],
+    {training_data: "string", classifier_title: "string", classifier_algorithm: "naive_bayes"}, "StuffClassifierTrainer"],
+   ["TF-IDF Classifier", "icon", "Tags documents with labels based on word frequency.",
+    {fields_to_check: "array", classifier_title: "string"},
+    "TfidfClassifyAnnotator", ["catalyst_tfidfclassify"],
+    {training_data: "string", classifier_title: "string", classifier_algorithm: "tfidf"}, "StuffClassifierTrainer"],
+  ["Regex Extractor", "icon", "Extract all the terms in the text that match a regular expression.",
+   {fields_to_check: "array", regex: "string", case_sensitive: "boolean"},
+   "RegexAnnotator", ["catalyst_regex"], nil, nil],
+  ["Highscore Keyword Detection", "icon", "Identify keywords based on word length, frequency, and composition.",
+   {fields_to_check: "array", number_of_keywords: "integer"},
+   "HighscoreAnnotator", ["catalyst_highscore"], nil, nil],
+  ["Rapid Automatic Keyword Extraction", "icon", "Identify multi-word keywords with RAKE.",
+   {fields_to_check: "array", number_of_keywords: "integer"},
+   "RakeAnnotator", ["catalyst_rake"], nil, nil],
+  ["Email Extractor", "icon", "Extracts email addresses.", {fields_to_check: "array"},
+   "EmailAnnotator", ["catalyst_email"], nil, nil],
+  ["Phone Extractor", "icon", "Extracts phone numbers.", {fields_to_check: "array"},
+   "PhoneAnnotator", ["catalyst_phone"], nil, nil],
+  ["IP Extractor", "icon", "Extracts IP addresses.", {fields_to_check: "array"},
+   "IpAnnotator", ["catalyst_ip"], nil, nil],
+  ["URL Extractor", "icon", "Extracts URLs.", {fields_to_check: "array"},
+   "UrlAnnotator", ["catalyst_url"], nil, nil],
+  ["Run Custom Code", "icon", "Runs the block of code you input on each document.",
+   {fields_to_check: "array", code_block: "text", type: "string"}, "CustomAnnotator", ["catalyst_custom"], nil, nil],
+  ["TF-IDF Keyword Detection", "icon", "Detects keywords using relative term frequency.",
+   {fields_to_check: "array", index_name: "string", lower_bound: "integer", upper_bound: "integer"},
+   "TfidfKeywordAnnotator", ["catalyst_tfidfkeyword"], nil, nil]
+]
+
+annotators.each do |name, icon, description, input_params, classname, output_fields, training_input, trainer|
+  Annotator.create(name: name, icon: icon, description: description, input_params: input_params,
+                  classname: classname, output_fields: output_fields, training_input: training_input, trainer: trainer)
+end
