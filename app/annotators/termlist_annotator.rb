@@ -16,7 +16,7 @@ class TermlistAnnotator
         # Set the text depending on if it is case sensitive or not
         field_text = doc["_source"][field]
         if !@case_sens
-          field_text = field_text.downcase
+          field_text = field_text.downcase if field_text
         end
         
         # Handle category lists with remapping

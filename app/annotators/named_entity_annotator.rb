@@ -29,7 +29,7 @@ class NamedEntityAnnotator
 
       # Save and return
       field_to_output = @output_field_names.select{|k, v| v}.values.first
-      doc["_source"][field_to_output] = entities_list
+      doc["_source"][field_to_output] = entities_list.uniq
       return doc
     end
   end
