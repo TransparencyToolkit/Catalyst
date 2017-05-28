@@ -13,6 +13,5 @@ class SaveDoc
     c.http_post(Curl::PostField.content("item_type", @default_dataspec),
                 Curl::PostField.content("index_name", @index_name),
                 Curl::PostField.content("items", JSON.pretty_generate(doc_data)))
-    
   end
 end
