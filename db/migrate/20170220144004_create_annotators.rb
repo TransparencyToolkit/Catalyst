@@ -1,4 +1,4 @@
-class CreateAnnotators < ActiveRecord::Migration
+class CreateAnnotators < ActiveRecord::Migration[4.2]
   def change
     create_table :annotators do |t|
       t.string :name

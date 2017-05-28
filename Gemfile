@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.6'
+gem 'rails'
 gem 'pry'
 gem 'thin'
 gem 'elasticsearch', git: 'git://github.com/elasticsearch/elasticsearch-ruby.git'
@@ -11,6 +11,7 @@ gem 'curb'
 gem 'awesome_print'
 gem 'sqlite3'
 gem 'ffi-hunspell'
+gem 'listen'
 
 # NaiveBayesAnnotator:
 gem 'stuff-classifier'

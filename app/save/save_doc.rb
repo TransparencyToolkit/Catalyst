@@ -8,17 +8,11 @@ class SaveDoc
 
   # Saves all inputted matches
   def save_doc(doc_data)
-    # Get the relevant data source
-    data_source = JSON.parse(doc_data.first[:item])["data_source"]
-    if data_source
-      data_source += "Crawl"
-    else
-      data_source = @default_dataspec
-    end
-    
     # Set item fields and index
-    Curl::Easy.http_post("http://localhost:3000/add_new_item",
-                         Curl::PostField.content("source", data_source),
-                         Curl::PostField.content("extracted_items", JSON.pretty_generate(doc_data)))
+    c = Curl::Easy.new("http://localhost:3000/add_items")
+    c.http_post(Curl::PostField.content("item_type", @default_dataspec),
+                Curl::PostField.content("index_name", @index_name),
+                Curl::PostField.content("items", JSON.pretty_generate(doc_data)))
+    
   end
 end
