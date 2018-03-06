@@ -1,10 +1,11 @@
 # Extracts keywords using tfidf
 class TfidfKeywordAnnotator
-  include DocStats
-  def initialize(output_field_name, fields_to_check, index_name, lower_bound, upper_bound)
+  include DocmanagerAPI
+  def initialize(output_field_name, fields_to_check, index_name, doc_type, lower_bound, upper_bound)
     @fields_to_check = fields_to_check
     @output_field_name = output_field_name
     @index_name = index_name
+    @doc_type = doc_type
     @lower_bound = lower_bound
     @upper_bound = upper_bound
   end
@@ -13,10 +14,10 @@ class TfidfKeywordAnnotator
   def gen_tfidf_block
     return lambda do |doc|
       keywords = Array.new
-
+      
       # Get the term vector and doc num
-      term_vector = get_term_vector(doc)
-      doc_count = total_docs(@index_name)
+      term_vector = get_term_vector(@index_name, doc["_id"], @fields_to_check, @doc_type)
+      doc_count = get_total_docs(@index_name)
       
       @fields_to_check.each do |field|
         field_text = doc["_source"][field]
@@ -25,7 +26,7 @@ class TfidfKeywordAnnotator
         tfidf_scores = get_all_tfidf_scores(term_vector, doc_count, field, field_text)
         keywords += tfidf_scores.select{|k,v| (v <= @upper_bound) && (v >= @lower_bound)}.map{|k,v| k}
       end
-
+      
       # Save in appropriate field
       doc["_source"][@output_field_name["catalyst_tfidfkeyword"]] = keywords.uniq
       return doc
@@ -52,12 +53,6 @@ class TfidfKeywordAnnotator
     return field_text[term_position["start_offset"]...term_position["end_offset"]]
   end
 
-  # Get the term vector for the doc from elasticsearch
-  def get_term_vector(doc)
-    query = "http://localhost:9200/"+@index_name+"/"+@index_name+"_doc/"+doc["_id"]+"/_termvector?term_statistics=true"
-    return Curl.get(query).body_str
-  end
-
   # Get the total number of terms for field in the doc
   def total_terms_in_field(term_stats_for_field)
     return term_stats_for_field["terms"].inject(0){|count,term| count+=term[1]["term_freq"]}
@@ -78,8 +73,8 @@ class TfidfKeywordAnnotator
 
   # Calculate idf = log_e(Total # of documents/# of documents with term)
   def calculate_idf(termvector, doc_count)
-    doc_freq = termvector["doc_freq"]
-    return Math.log(doc_count/doc_freq.to_f)
+    doc_freq = termvector["doc_freq"].to_i
+    return Math.log(doc_count.to_i/doc_freq.to_f)
   end
   
   # Initialize block to call

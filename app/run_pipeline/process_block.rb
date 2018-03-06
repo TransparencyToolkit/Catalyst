@@ -1,4 +1,6 @@
+# This runs the block of code for the annotator over the document and saves the results
 class ProcessBlock
+  include DocmanagerAPI
   def initialize(docs, index_name, default_dataspec, process_block, *args)
     @docs = docs
     @doc_output = Array.new
@@ -18,7 +20,7 @@ class ProcessBlock
       @doc_output.push(@process_block.call(doc, *args)["_source"])
     end
 
-    # Index docs
-    SaveDoc.new(@doc_output, @index_name, @default_dataspec)
+    # Index/Save the documents
+    save_data(@index_name, @default_dataspec, @doc_output)
   end
 end

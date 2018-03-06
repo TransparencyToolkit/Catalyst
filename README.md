@@ -11,7 +11,6 @@ archives.
 
 ## Dependencies
 
-* elasticsearch
 * rails
 * ruby 
 * openjdk-8-jdk
@@ -20,7 +19,6 @@ archives.
 * libcurl3-gnutls
 * libcurl4-openssl-dev
 * sqlite3
-* LookingGlass
 * DocManager
 * Stanford NER
 
@@ -53,7 +51,7 @@ rake db:reset
 
 ## Preparing to Run Catalyst
 
-### Start Elasticsearch, LookingGlass, and DocManager
+### Start DocManager and (optionally) LookingGlass
 
 Please see the LG and DocManager repos for current instructions-
 https://github.com/TransparencyToolkit/DocManager

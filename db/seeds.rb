@@ -41,7 +41,7 @@ annotators = [
   ["Run Custom Code", "icon", "Runs the block of code you input on each document.",
    {fields_to_check: "array", code_block: "text", type: "string"}, "CustomAnnotator", ["catalyst_custom"], nil, nil],
   ["TF-IDF Keyword Detection", "icon", "Detects keywords using relative term frequency.",
-   {fields_to_check: "array", index_name: "string", lower_bound: "integer", upper_bound: "integer"},
+   {fields_to_check: "array", index_name: "string", doc_type: "string", lower_bound: "integer", upper_bound: "integer"},
    "TfidfKeywordAnnotator", ["catalyst_tfidfkeyword"], nil, nil]
 ]
 
