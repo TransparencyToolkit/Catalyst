@@ -6,7 +6,7 @@ class CreateAnnotators < ActiveRecord::Migration[4.2]
       t.string :description
       t.text :input_params
       t.string :classname
-      t.string :output_fields
+      t.string :output_type
 
       t.timestamps null: false
     end

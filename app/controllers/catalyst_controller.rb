@@ -12,7 +12,7 @@ class CatalystController < ApplicationController
 
     # Get list of annotators and generate recipe block
     annotators = JSON.parse(params["input-params"])
-    recipe_block = prepare_recipe(annotators, index_name)
+    recipe_block = prepare_recipe(annotators, index_name, default_dataspec)
     
     # Query the documents
     QueryDocs.new(index_name, default_dataspec, docs_to_process, recipe_block)

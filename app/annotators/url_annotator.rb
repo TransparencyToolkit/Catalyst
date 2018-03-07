@@ -22,7 +22,7 @@ class UrlAnnotator
       end
       
       # Save in appropriate field
-      doc["_source"][@output_field_name["catalyst_url"]] = url_matches.uniq
+      doc["_source"][@output_field_name] = url_matches.uniq
       return doc
     end
   end

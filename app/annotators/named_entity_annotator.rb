@@ -1,8 +1,8 @@
 # Extracts names of people, organizations, and locations
 class NamedEntityAnnotator
-  def initialize(output_field_names, fields_to_check, entity_type)
+  def initialize(output_field_name, fields_to_check, entity_type)
     @fields_to_check = fields_to_check
-    @output_field_names = output_field_names
+    @output_field_name = output_field_name
     @entity_type = entity_type
   end
 
@@ -28,8 +28,7 @@ class NamedEntityAnnotator
       end
 
       # Save and return
-      field_to_output = @output_field_names.select{|k, v| v}.values.first
-      doc["_source"][field_to_output] = entities_list.uniq
+      doc["_source"][@output_field_name] = entities_list.uniq
       return doc
     end
   end

@@ -18,7 +18,7 @@ class TfidfClassifyAnnotator
         end
         
         # Save in appropriate field
-        doc["_source"][@output_field_name["catalyst_tfidfclassify"]] = labels
+        doc["_source"][@output_field_name] = labels
         return doc
       end
     end

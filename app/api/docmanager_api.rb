@@ -1,4 +1,13 @@
 module DocmanagerAPI
+  # Add a field to dataspec
+  def add_field(doc_class, project_index, machine_readable_param, field_hash)
+    c = Curl::Easy.new("#{ENV['DOCMANAGER_URL']}/add_field")
+    c.http_post(Curl::PostField.content("doc_class", doc_class),
+                Curl::PostField.content("project_index", project_index),
+                Curl::PostField.content("field_name", machine_readable_param),
+                Curl::PostField.content("field_hash", JSON.pretty_generate(field_hash)))
+  end
+  
   # Save the data
   def save_data(index_name, dataspec, doc_data)
     c = Curl::Easy.new("#{ENV['DOCMANAGER_URL']}/add_items")

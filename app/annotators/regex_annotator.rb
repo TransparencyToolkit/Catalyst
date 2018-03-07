@@ -22,7 +22,7 @@ class RegexAnnotator
       end
       
       # Save in appropriate field
-      doc["_source"][@output_field_name["catalyst_regex"]] = regex_matches.uniq
+      doc["_source"][@output_field_name] = regex_matches.uniq
       return doc
     end
   end

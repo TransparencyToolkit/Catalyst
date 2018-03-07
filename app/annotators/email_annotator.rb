@@ -21,7 +21,7 @@ class EmailAnnotator
       end
       
       # Save in appropriate field
-      doc["_source"][@output_field_name["catalyst_email"]] = email_matches.uniq
+      doc["_source"][@output_field_name] = email_matches.uniq
       return doc
     end
   end

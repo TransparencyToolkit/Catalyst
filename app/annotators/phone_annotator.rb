@@ -39,7 +39,7 @@ class PhoneAnnotator
       end
       
       # Save in appropriate field
-      doc["_source"][@output_field_name["catalyst_phone"]] = phone_matches.uniq
+      doc["_source"][@output_field_name] = phone_matches.uniq
       return doc
     end
   end

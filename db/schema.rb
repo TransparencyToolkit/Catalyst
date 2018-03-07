@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20170225031407) do
     t.string "description"
     t.text "input_params"
     t.string "classname"
-    t.string "output_fields"
+    t.string "output_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "training_input"

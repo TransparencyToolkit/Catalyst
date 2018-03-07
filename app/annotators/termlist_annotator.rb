@@ -1,10 +1,11 @@
 # Tags documents with the term they include and remaps them
 class TermlistAnnotator
-  def initialize(output_field_name, fields_to_check, term_list, case_sens)
+  def initialize(output_field_name, fields_to_check, term_list, case_sens, list_or_category)
     @fields_to_check = fields_to_check
     @term_list = JSON.parse(term_list)
     @output_field_name = output_field_name
     @case_sens = case_sens
+    @list_or_category = list_or_category
   end
 
   # Extract terms
@@ -31,9 +32,13 @@ class TermlistAnnotator
         end
       end
       
-      # Save in appropriate field
-      doc["_source"][@output_field_name["catalyst_termcategory"]] = termcategories.uniq
-      doc["_source"][@output_field_name["catalyst_termlist"]] = foundterms.uniq
+      # Save in appropriate field, and save terms or categories
+      if @list_or_category.downcase == "category"
+        doc["_source"][@output_field_name] = termcategories.uniq
+      else
+        doc["_source"][@output_field_name] = foundterms.uniq
+      end
+      
       return doc
     end
   end

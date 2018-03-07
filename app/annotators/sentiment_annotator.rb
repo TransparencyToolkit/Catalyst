@@ -15,7 +15,7 @@ class SentimentAnnotator
       end
 
       # Save in appropriate field
-      doc["_source"][@output_field_name["catalyst_sentiment"]] = sentiment
+      doc["_source"][@output_field_name] = sentiment
       return doc
     end
   end

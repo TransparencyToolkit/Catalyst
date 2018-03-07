@@ -23,7 +23,7 @@ class IpAnnotator
       end
       
       # Save in appropriate field
-      doc["_source"][@output_field_name["catalyst_ip"]] = ip_matches.uniq
+      doc["_source"][@output_field_name] = ip_matches.uniq
       return doc
     end
   end

@@ -25,7 +25,7 @@ class LanguageAnnotator
       end
 
       # Save in appropriate field
-      doc["_source"][@output_field_name["catalyst_language"]] = language
+      doc["_source"][@output_field_name] = language
       return doc
     end
   end

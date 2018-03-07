@@ -23,7 +23,7 @@ class CustomAnnotator
       end
 
       # Save in appropriate field
-      doc["_source"][@output_field_name["catalyst_custom"]] = custom
+      doc["_source"][@output_field_name] = custom
       return doc
     end
   end

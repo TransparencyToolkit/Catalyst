@@ -28,7 +28,7 @@ class TfidfKeywordAnnotator
       end
       
       # Save in appropriate field
-      doc["_source"][@output_field_name["catalyst_tfidfkeyword"]] = keywords.uniq
+      doc["_source"][@output_field_name] = keywords.uniq
       return doc
     end
   end
