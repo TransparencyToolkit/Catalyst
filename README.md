@@ -19,6 +19,9 @@ archives.
 * libcurl3-gnutls
 * libcurl4-openssl-dev
 * sqlite3
+* hunspell
+* libidn11-dev
+* libsqlite3-dev
 * DocManager
 * Stanford NER
 
@@ -42,6 +45,8 @@ Download and unzip Stanford NER from https://nlp.stanford.edu/software/CRF-NER.h
 ### Install Gems
 
 bundle install
+
+If cld fails to install, you may need to run: CFLAGS="-Wno-narrowing" CXXFLAGS="$CFLAGS" gem install cld
 
 ### Setup database
 
