@@ -59,8 +59,10 @@ rake db:reset
 ### Start DocManager and (optionally) LookingGlass
 
 Please see the LG and DocManager repos for current instructions-
-https://github.com/TransparencyToolkit/DocManager
-https://github.com/TransparencyToolkit/LookingGlass
+
+* https://github.com/TransparencyToolkit/DocManager
+
+* https://github.com/TransparencyToolkit/LookingGlass
 
 ### Start Named Entity Recognition
 
@@ -75,9 +77,12 @@ rails server -p 9004
 ### Run Catalyst
 
 Run a script that tells Catalyst what to do.
-Examples: https://github.com/TransparencyToolkit/catalyst_test_scripts
-Query Structure: https://github.com/TransparencyToolkit/Catalyst/blob/master/API_STRUCTURE.md
-List of Annotators: https://github.com/TransparencyToolkit/Catalyst/blob/master/db/seeds.rb
+
+* Examples: https://github.com/TransparencyToolkit/catalyst_test_scripts
+
+* Query Structure: https://github.com/TransparencyToolkit/Catalyst/blob/master/API_STRUCTURE.md
+
+* List of Annotators: https://github.com/TransparencyToolkit/Catalyst/blob/master/db/seeds.rb
 
 
 

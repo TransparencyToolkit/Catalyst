@@ -27,6 +27,8 @@ https://github.com/TransparencyToolkit/catalyst_test_scripts
 
 Catalyst expects a list of annotators in the form of an array of hashes. A
 simple example-
+
+```
 [ {
     annotator_name: "PersonEntityAnnotator",
     fields_to_check: ["article_text"]
@@ -38,6 +40,7 @@ simple example-
     output_param_icon: "map"
   }
 ]
+```
 
 There are two fields that must ALWAYS be set:
 
@@ -65,6 +68,8 @@ Some annotators require additional input options to be set by the user-
 * input_params: User-specified input parameters. The list of parameters
   required for each annotator along with the data type is specified in
   db/seeds.rb. An example annotator specification with input_params-
+  
+  ```
   [
     {
       annotator_name: "TfidfKeywordAnnotator",
@@ -73,7 +78,7 @@ Some annotators require additional input options to be set by the user-
         num_keywords_per_document: 5}
       }			
   ]
-
+  ```
 
 
 ## docs_to_process
@@ -85,27 +90,35 @@ by passing a hash with the run_over field having one of the following values
 
 * all: Catalyst can run over all documents. In this case, no other options
   need to be specified.
+  ```
   {
     run_over: "all",
   }
+  ```
 
 * unprocessed: Catalyst can run over documents that have a nil or blank value
   for a certain field. In this case, field_to_search needs to be specified
   with the field it should run on. Users could choose this with a dropdown of
   fields as options.
+  
+  ```
   {
     run_over: "unprocessed",
     field_to_search: "catalyst_sentiment"
   }
+  ```
       
 * matching_query: Catalyst can run over only documents that match a certain
   query. Here, field_to_search (the field to check for the match) and
   filter_query (the query to check for) need to be specified.
+
+  ```
   {
     run_over: "matching_query",
     field_to_search: "brochure_text",
     filter_query: "data"
   }	
+  ```
 
 * within_range: Catalyst can run on documents only when a numerical field is
   within a certain range. In this case, field_to_search needs to be specified
@@ -113,13 +126,15 @@ by passing a hash with the run_over field having one of the following values
   for matching_query only text fields). Then the range to filter within is
   specified with the start of the range in the filter_query field and the
   end of the range in the end_filter_range field.
+  
+  ```
   {
     run_over: "within_range",
     field_to_search: "publish_date",
     filter_query: "2018-03-08",
     end_filter_range: "2018-08-30"
   }
-
+  ```
 
 
 # list_annotators
