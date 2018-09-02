@@ -2,9 +2,6 @@
 module RecipeGen
   # Generate and run recipe
   def prepare_recipe(annotators, index_name, default_dataspec)
-    # Train all machine learning classifiers
-    train_all_classifiers(annotators)
-
     # Generate block for each annotator in recipe
     annotator_blocks = Array.new
     annotators.each do |annotator_params|

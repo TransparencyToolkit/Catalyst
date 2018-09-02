@@ -1,9 +1,8 @@
-# Extracts names of people, organizations, and locations
+# Extracts names using Stanford-NER
 class NamedEntityAnnotator
-  def initialize(output_field_name, fields_to_check, entity_type)
+  def initialize(output_field_name, fields_to_check)
     @fields_to_check = fields_to_check
     @output_field_name = output_field_name
-    @entity_type = entity_type
   end
 
   # Detect entities

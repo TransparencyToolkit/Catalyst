@@ -36,6 +36,7 @@ module DocmanagerAPI
 
   # Gets the documents with a field empty
   def get_term_vector(index_name, doc_id, fields_to_check, doc_type)
+    fields_to_check = JSON.pretty_generate(fields_to_check)
     http = Curl.get("#{ENV['DOCMANAGER_URL']}/get_term_vector", {index_name: index_name, doc_id: doc_id, fields_to_check: fields_to_check, doc_type: doc_type})
     return http.body_str
   end

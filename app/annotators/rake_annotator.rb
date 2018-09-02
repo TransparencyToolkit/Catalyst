@@ -11,16 +11,18 @@ class RakeAnnotator
     return lambda do |doc|
       keywords = Array.new
       @fields_to_check.each do |field|
-        field_text = doc["_source"][field]
+        field_text = ActionView::Base.full_sanitizer.sanitize(doc["_source"][field])
 
         # Extract keywords
-        rake = RakeText.new
-        all_keywords = rake.analyse(field_text, RakeText.SMART)
+        if field_text
+          rake = RakeText.new
+          all_keywords = rake.analyse(field_text, RakeText.SMART)
 
-        # Filter and return
-        selected_keywords = all_keywords.sort_by{|k, v| v}.select{|k, v| v>1 && v<8}.select{|k, v| k.length < 20}
-        selected_keywords = selected_keywords.reverse[0...@number_of_keywords]
-        keywords += selected_keywords.map{|k, v| k.gsub("\n", '')}
+          # Filter and return
+          selected_keywords = all_keywords.sort_by{|k, v| v}.select{|k, v| v>1 && v<8}.select{|k, v| k.length < 20}
+          selected_keywords = selected_keywords.reverse[0...@number_of_keywords]
+          keywords += selected_keywords.map{|k, v| k.gsub("\n", '')}
+        end
       end
 
       # Save in appropriate field

@@ -19,7 +19,7 @@ class ProcessBlock
     @docs.each do |doc|
       @doc_output.push(@process_block.call(doc, *args)["_source"])
     end
-
+    
     # Index/Save the documents
     save_data(@index_name, @default_dataspec, @doc_output)
   end

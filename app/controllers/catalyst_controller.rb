@@ -1,13 +1,12 @@
 class CatalystController < ApplicationController
   include AnnotatorGen
   include RecipeGen
-  include TrainerGen
   
   # Run annotators
   def annotate
     # Get index, dataspec names, and docs to run on
-    index_name = params["index"]
-    default_dataspec = params["default_dataspec"]
+    index_name = ENV["CATALYST_INDEX"] = params["index"]
+    default_dataspec = ENV["CATALYST_DOCTYPE"] = params["default_dataspec"]
     docs_to_process = JSON.parse(params["docs_to_process"])
 
     # Get list of annotators and generate recipe block

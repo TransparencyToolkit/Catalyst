@@ -1,13 +1,12 @@
 # Extracts keywords using tfidf
 class TfidfKeywordAnnotator
   include DocmanagerAPI
-  def initialize(output_field_name, fields_to_check, index_name, doc_type, lower_bound, upper_bound)
+  def initialize(output_field_name, fields_to_check, number_of_keywords)
     @fields_to_check = fields_to_check
     @output_field_name = output_field_name
-    @index_name = index_name
-    @doc_type = doc_type
-    @lower_bound = lower_bound
-    @upper_bound = upper_bound
+    @index_name = ENV["CATALYST_INDEX"]
+    @doc_type = ENV["CATALYST_DOCTYPE"]
+    @number_of_keywords = number_of_keywords
   end
 
   # Extract keywords using tf-idf
@@ -23,8 +22,11 @@ class TfidfKeywordAnnotator
         field_text = doc["_source"][field]
 
         # Calculate keywords from tf-idf
-        tfidf_scores = get_all_tfidf_scores(term_vector, doc_count, field, field_text)
-        keywords += tfidf_scores.select{|k,v| (v <= @upper_bound) && (v >= @lower_bound)}.map{|k,v| k}
+        if field_text
+          tfidf_scores = get_all_tfidf_scores(term_vector, doc_count, field, field_text)
+          sorted_scores =  tfidf_scores.sort_by(&:last).reverse.to_h
+          keywords += sorted_scores.keys[0..@number_of_keywords] if sorted_scores
+        end
       end
       
       # Save in appropriate field
@@ -35,16 +37,20 @@ class TfidfKeywordAnnotator
 
   # Get all of the tf-idf scores
   def get_all_tfidf_scores(term_vector, doc_count, field, field_text)
-    term_stats_for_field = JSON.parse(term_vector)["term_vectors"][field]
-    num_terms_indoc = total_terms_in_field(term_stats_for_field)
+    parsed_term_vector = JSON.parse(term_vector)["term_vectors"]
     tfidf_hash = Hash.new
+    
+    if !parsed_term_vector.blank?
+      term_stats_for_field = parsed_term_vector[field]
+      num_terms_indoc = total_terms_in_field(term_stats_for_field)
 
-    # Compute tf-idf for each term
-    term_stats_for_field["terms"].each do |tv|
-      full_term = get_full_term(field_text, tv[1]["tokens"].first)
-      tfidf_hash[full_term] = calculate_tfidf(tv[1], doc_count, num_terms_indoc)
+      # Compute tf-idf for each term
+      term_stats_for_field["terms"].each do |tv|
+        full_term = get_full_term(field_text, tv[1]["tokens"].first)
+        tfidf_hash[full_term] = calculate_tfidf(tv[1], doc_count, num_terms_indoc)
+      end
     end
-   
+      
     return tfidf_hash
   end
 

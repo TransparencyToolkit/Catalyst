@@ -1,11 +1,11 @@
 # Tags documents with the term they include and remaps them
 class TermlistAnnotator
-  def initialize(output_field_name, fields_to_check, term_list, case_sens, list_or_category)
+  def initialize(output_field_name, fields_to_check, term_list, case_sens)
     @fields_to_check = fields_to_check
     @term_list = JSON.parse(term_list)
     @output_field_name = output_field_name
     @case_sens = case_sens
-    @list_or_category = list_or_category
+    @list_or_category = "list"
   end
 
   # Extract terms
@@ -46,7 +46,7 @@ class TermlistAnnotator
   # Check if there are matches for each term
   def match_terms(terms, category, termcategories, foundterms, field_text)
     terms.each do |term|
-      # Figure out if term to check shold be downcase
+      # Figure out if term to check should be downcase
       if @case_sens
         check_term = term
       else

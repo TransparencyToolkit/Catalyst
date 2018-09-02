@@ -2,7 +2,7 @@ require "twitter-text"
 
 # Extracts URLs
 class UrlAnnotator
-  include Twitter::Extractor
+  include Twitter::TwitterText::Extractor
   def initialize(output_field_name, fields_to_check)
     @fields_to_check = fields_to_check
     @output_field_name = output_field_name

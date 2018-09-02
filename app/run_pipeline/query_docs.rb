@@ -35,27 +35,33 @@ class QueryDocs
     end
   end
 
+  # Filter documents for the correct type
+  def filter_for_correct_type(docs)
+    type_to_keep = @index_name+"_"+@default_dataspec.underscore
+    return docs.select{|d| d["_type"] == type_to_keep}
+  end
+
   # Query all documents
   def query_all_docs(*args)
-    docs = JSON.parse(get_all_docs(@index_name))
+    docs = filter_for_correct_type(JSON.parse(get_all_docs(@index_name)))
     run_block(docs, *args)
   end
 
   # Get docs with nothing in the field
   def query_nil_docs(*args)
-    docs = JSON.parse(get_docs_with_empty_field(@index_name, @field_to_search))
+    docs = filter_for_correct_type(JSON.parse(get_docs_with_empty_field(@index_name, @field_to_search)))
     run_block(docs, *args)
   end
 
   # Get all the documents that match a search query
   def query_matching_docs(*args)
-    docs = JSON.parse(get_matching_docs(@index_name, @field_to_search, @filter_query))
+    docs = filter_for_correct_type(JSON.parse(get_matching_docs(@index_name, @field_to_search, @filter_query)))
     run_block(docs, *args)
   end
 
   # Get all the documents after a specified date
   def query_within_range(*args)
-    docs = JSON.parse(get_within_range(@index_name, @field_to_search, @filter_query, @end_filter_range))
+    docs = filter_for_correct_type(JSON.parse(get_within_range(@index_name, @field_to_search, @filter_query, @end_filter_range)))
     run_block(docs, *args)
   end
 

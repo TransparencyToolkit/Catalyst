@@ -12,7 +12,12 @@ class HighscoreAnnotator
       keywords = Array.new
       @fields_to_check.each do |field|
         field_text = doc["_source"][field]
-        keywords += field_text.keywords.top(@number_of_keywords).map{|k| k.text}
+
+        # Look for keywords
+        if field_text
+          keywords_found = field_text.keywords.top(@number_of_keywords).map{|k| k.text}
+          keywords += keywords_found if keywords_found
+        end
       end
 
       # Save in appropriate field

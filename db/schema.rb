@@ -10,19 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170225031407) do
+ActiveRecord::Schema.define(version: 2017_02_20_144004) do
 
   create_table "annotators", force: :cascade do |t|
     t.string "name"
-    t.string "icon"
+    t.string "default_icon"
+    t.string "default_human_readable_label"
     t.string "description"
     t.text "input_params"
     t.string "classname"
-    t.string "output_type"
+    t.string "output_display_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "training_input"
-    t.string "trainer"
   end
 
 end
