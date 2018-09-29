@@ -35,24 +35,28 @@ first. If you have DocManager and LookingGlass, you will already have the
 correct version of many dependencies.
 
 Aside from installing LookingGlass and DocManager, you should run-
-apt-get install openjdk-8-jdk openjdk-8-jre libcurl3 libcurl3-gnutls
-libcurl4-openssl-dev sqlite3
-
+```shell
+apt-get install openjdk-8-jdk openjdk-8-jre libcurl3 libcurl3-gnutls \
+                libcurl4-openssl-dev sqlite3
+```
 ### Download Stanford NER
 
 Download and unzip Stanford NER from https://nlp.stanford.edu/software/CRF-NER.html#Download
 
 ### Install Gems
 
+```shell
 bundle install
+```
 
-If cld fails to install, you may need to run: CFLAGS="-Wno-narrowing" CXXFLAGS="$CFLAGS" gem install cld
+If `cld` fails to install, you may need to run: `CFLAGS="-Wno-narrowing" CXXFLAGS="$CFLAGS" gem install cld`
 
 ### Setup database
 
+```shell
 rake db:create
 rake db:reset
-
+```
 
 ## Preparing to Run Catalyst
 
@@ -67,12 +71,18 @@ Please see the LG and DocManager repos for current instructions-
 ### Start Named Entity Recognition
 
 cd into the stanford-ner directory, then run-
-java -mx1000m -cp stanford-ner.jar:lib/* edu.stanford.nlp.ie.NERServer -loadClassifier classifiers/english.all.3class.distsim.crf.ser.gz -port 9002 -outputFormat inlineXML
+```shell
+java -mx1000m -cp stanford-ner.jar:lib/* edu.stanford.nlp.ie.NERServer \
+     -loadClassifier classifiers/english.all.3class.distsim.crf.ser.gz \
+     -port 9002 -outputFormat inlineXML
+```
 
 ### Start Catalyst
 
 From the Catalyst repository directory, run:
+```shell
 rails server -p 9004
+```
 
 ### Run Catalyst
 
