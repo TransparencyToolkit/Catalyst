@@ -1,1 +1,1 @@
-ENV['DOCMANAGER_URL'] = "http://0.0.0.0:3000" if ENV['DOCMANAGER_URL'] == nil
+ENV['DOCMANAGER_URL'] = "http://127.0.0.1:3000" if ENV['DOCMANAGER_URL'] == nil

@@ -3,6 +3,7 @@ class TermlistAnnotator
   def initialize(output_field_name, fields_to_check, term_list, case_sens)
     @fields_to_check = fields_to_check
     @term_list = JSON.parse(term_list)
+    
     @output_field_name = output_field_name
     @case_sens = case_sens
     @list_or_category = "list"
