@@ -6,7 +6,7 @@ class TfidfKeywordAnnotator
     @output_field_name = output_field_name
     @index_name = ENV["CATALYST_INDEX"]
     @doc_type = ENV["CATALYST_DOCTYPE"]
-    @number_of_keywords = number_of_keywords
+    @number_of_keywords = number_of_keywords.to_i
   end
 
   # Extract keywords using tf-idf

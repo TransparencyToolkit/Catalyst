@@ -3,7 +3,7 @@ class HighscoreAnnotator
   def initialize(output_field_name, fields_to_check, number_of_keywords)
     @fields_to_check = fields_to_check
     @output_field_name = output_field_name
-    @number_of_keywords = number_of_keywords
+    @number_of_keywords = number_of_keywords.to_i
   end
 
   # Calculate keywords
