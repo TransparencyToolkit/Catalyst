@@ -59,7 +59,7 @@ annotators = {
   "RegexAnnotator" => {
     name: "Extract Regex Matches",
     description: "Extracts all terms in the text that match a regular expression.",
-    default_icon: "",
+    default_icon: "regex",
     default_human_readable_label: "Regex Matches",
     output_display_type: "Set By User",
     input_params: {output_display_type: ["Category", "Short Text"], regex: "string"}
