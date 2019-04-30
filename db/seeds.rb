@@ -116,7 +116,7 @@ annotators = {
     name: "Detect Significant Terms",
     description: "Finds keywords by comparing term frequency within a document to term frequency within the whole corpus using TF-IDF.",
     default_icon: "documents",
-    default_human_readable_label: "Sigificant Terms",
+    default_human_readable_label: "Significant Terms",
     output_display_type: "Category",
     input_params: {num_keywords_per_document: "Ingeger"}
   }
